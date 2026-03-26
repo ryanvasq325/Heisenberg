@@ -1,7 +1,7 @@
 export function up(knex) {
     return knex.schema.createTable('country', (table) => {
         table.bigIncrements('id').primary();
-        table.integer('codigo').notNullable();
+        table.text('codigo').notNullable();
         table.text('nome').notNullable();
         table.text('localizacao').notNullable();
         table.text('lingua').notNullable();
