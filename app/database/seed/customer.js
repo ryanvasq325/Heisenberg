@@ -1,13 +1,21 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
- */
-exports.seed = async function(knex) {
-  // Deletes ALL existing entries
-  await knex('table_name').del()
-  await knex('table_name').insert([
-    {id: 1, colName: 'rowValue1'},
-    {id: 2, colName: 'rowValue2'},
-    {id: 3, colName: 'rowValue3'}
-  ]);
-};
+import { faker } from "@faker-js/faker/locale/pt_BR";
+
+
+export async function seed(knex) {
+
+  await knex("customer").del();
+
+  const bathSize = 1000;
+
+  const total = 100000;
+
+  for (let i = 0; i < total; i += bathSize) {
+    const batch = Array.from({ length: bathSize }, () => ({
+      nome: faker.person.fullName(),
+      cpf: faker.string.numeric(11),
+      rg: faker.string.numeric(9),
+      ativo: faker.datatype.boolean(),
+    }));
+    await knex("customer").insert(batch);
+  }
+}

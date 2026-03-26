@@ -1,5 +1,4 @@
 import 'dotenv/config';
-
 const shared = {
     client: 'pg',
     connection: {
@@ -17,7 +16,6 @@ const shared = {
         directory: './app/database/seed',
     },
 };
-
 export default {
     development: { ...shared },
     production: { ...shared, pool: { min: 2, max: 20 } },
