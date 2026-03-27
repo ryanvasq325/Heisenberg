@@ -1,25 +1,23 @@
 import { faker } from "@faker-js/faker/locale/pt_BR";
 
-
 export async function seed(knex) {
-
   await knex("product").del();
 
-  const bathSize = 1000;
-
+  const batchSize = 1000;
   const total = 1000000;
 
-  for (let i = 0; i < total; i += bathSize) {
-    const batch = Array.from({ length: bathSize }, () => ({
-      nome_descricao: faker.commerce.product(),
+  for (let i = 0; i < total; i += batchSize) {
+    const batch = Array.from({ length: batchSize }, () => ({
+      nome_descricao: faker.commerce.productName(),
       descricao_curta: faker.commerce.productDescription(),
-      codigo_barras: faker.commerce.isbn(),
-      custo: faker.commerce.price(),
-      preco: faker.commerce.price(),
-      unidade: faker.random.worda(),
+      codigo_barras: faker.string.numeric(13),
+      custo: parseFloat(faker.commerce.price()),
+      preco: parseFloat(faker.commerce.price()),
+      unidade: faker.word.sample(),
       ativo: faker.datatype.boolean(),
       excluido: faker.datatype.boolean(),
     }));
+
     await knex("product").insert(batch);
   }
 }
