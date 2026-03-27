@@ -16,7 +16,7 @@ export async function seed(knex) {
       codigo_barras: faker.commerce.isbn(),
       custo: faker.commerce.price(),
       preco: faker.commerce.price(),
-      unidade: faker.random.word(),
+      unidade: faker.random.worda(),
       ativo: faker.datatype.boolean(),
       excluido: faker.datatype.boolean(),
     }));
