@@ -1,10 +1,10 @@
 export function up(knex) {
     return knex.schema.createTable('federative_unit', (table) => {
         table.bigIncrements('id').primary();
-        table.integer('id_country').unsigned();
-        table.text('codigo_uf').notNullable();
-        table.text('nome').notNullable();
-        table.text('sigla').notNullable();
+        table.bigInteger('id_pais');
+        table.text('codigo').notNullable();
+        table.text('nome').nullable();
+        table.text('sigla').nullable();
         table.timestamp('criado_em', { useTz: true })
                 .defaultTo(knex.fn.now())
                 .comment('Data de criação do registro');
@@ -13,7 +13,7 @@ export function up(knex) {
                 .defaultTo(knex.fn.now())
                 .comment('Data de atualização do registro');
                 
-                table.foreign('id_country').references('id').inTable('country')
+                table.foreign('id_pais').references('id').inTable('country').onDelete('CASCADE').onUpdate('NO ACTION');
         });
 }
 
