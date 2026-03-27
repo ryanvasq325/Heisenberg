@@ -5,7 +5,6 @@ export async function seed(knex) {
 
   const batchSize = 1000;
   const total = 1000000;
-
   for (let i = 0; i < total; i += batchSize) {
     const batch = Array.from({ length: batchSize }, () => ({
       nome_descricao: faker.commerce.productName(),
