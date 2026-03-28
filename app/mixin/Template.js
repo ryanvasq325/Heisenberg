@@ -70,7 +70,7 @@ nunjucksEnv.addGlobal('assets', ASSETS_PATH);
 nunjucksEnv.addGlobal('modules', MODULES_PATH);
 // Registra o nome da aplicação como variável global
 // Pode ser exibido em qualquer template assim: {{ appName }} → "DESKIVO"
-nunjucksEnv.addGlobal('appName', 'DESKIVO');
+nunjucksEnv.addGlobal('appName', 'HEISENBERG');
 // Registra se está em produção como variável global
 // Permite usar condicionais nos templates: {% if isProd %} ... {% endif %}
 nunjucksEnv.addGlobal('isProd', IS_PROD);
