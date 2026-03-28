@@ -1,5 +1,5 @@
 {
-    "name": "heisenberg",
+    "name": "deskivo",
     "version": "1.0.0",
     "main": "main.js",
     
@@ -12,9 +12,9 @@
         "build:all": "electron-builder --win --linux --mac"
     },
     "build": {
-        "appId": "com.heisenberg.app",
-        "productName": "Heisenberg",
-        "copyright": "e dos cara do Heisenberg",
+        "appId": "com.deskivo.app",
+        "productName": "Deskivo",
+        "copyright": "Copyright © 2026 Deskivo",
         "directories": {
             "output": "dist"
         },
