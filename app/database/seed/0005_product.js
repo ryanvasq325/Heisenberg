@@ -1,22 +1,24 @@
-import { faker } from "@faker-js/faker/locale/pt_BR";
+const { faker } = require("@faker-js/faker");
 
-export async function seed(knex) {
-  await knex("product").del();
+exports.seed = async function (knex) {
+    await knex('product').del();
 
-  const batchSize = 1000;
-  const total = 1000000;
-  for (let i = 0; i < total; i += batchSize) {
-    const batch = Array.from({ length: batchSize }, () => ({
-      nome_descricao: faker.commerce.productName(),
-      descricao_curta: faker.commerce.productDescription(),
-      codigo_barras: faker.string.numeric(13),
-      custo: parseFloat(faker.commerce.price()),
-      preco: parseFloat(faker.commerce.price()),
-      unidade: faker.word.sample(),
-      ativo: faker.datatype.boolean(),
-      excluido: faker.datatype.boolean(),
-    }));
+    const batchSize = 1000;
 
-    await knex("product").insert(batch);
-  }
-}
+    const total = 1000000;
+
+    const unidades = ['UN', 'KG', 'G', 'LT', 'ML', 'CX', 'PC', 'FD'];
+    for (let i = 0; i < total; i += batchSize) {
+        const batch = Array.from({ length: batchSize }, () => ({
+            nome: faker.commerce.product(),
+            codigo_barra: faker.commerce.upc(),
+            unidade: faker.helpers.arrayElement(unidades),
+            preco_compra: faker.commerce.price({ min: 20, max: 150 }),
+            margem_lucro: faker.commerce.price({ min: 20, max: 30 }),
+            preco_venda: faker.commerce.price({ min: 155, max: 400 }),
+            descricao: faker.commerce.productDescription(),
+            ativo: faker.datatype.boolean(),
+        }));
+        await knex('product').insert(batch);
+    }
+};

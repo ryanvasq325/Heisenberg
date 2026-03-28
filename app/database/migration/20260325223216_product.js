@@ -1,19 +1,20 @@
 export function up(knex) {
     return knex.schema.createTable('product', (table) => {
-        table.bigIncrements('id').primary();
-        table.text('nome_descricao').notNullable();
-        table.text('descricao_curta').notNullable();
-        table.text('codigo_barras').notNullable();
-        table.decimal('custo', 18, 4).notNullable();
-        table.decimal('preco', 18, 4).notNullable();
-        table.text('unidade').notNullable();
-        table.boolean('ativo').defaultTo(false);
+            table.bigIncrements('id').primary();
+            table.text('nome').notNullable();
+            table.text('codigo_barra');
+            table.text('unidade');
+            table.decimal('preco_compra', 18, 4).defaultTo(0);
+            table.decimal('margem_lucro', 18, 4).defaultTo(0);
+            table.decimal('preco_venda', 18, 4).defaultTo(0);
+            table.text('descricao');
+            table.boolean('ativo').defaultTo(true);
         table.boolean('excluido').defaultTo(false);
-        table.timestamp('criado_em', { useTz: true })
+        table.timestamp('criado_em', { useTz: false })
                 .defaultTo(knex.fn.now())
                 .comment('Data de criação do registro');
 
-        table.timestamp('atualizado_em', { useTz: true })
+        table.timestamp('atualizado_em', { useTz: false })
                 .defaultTo(knex.fn.now())
                 .comment('Data de atualização do registro');
         });
