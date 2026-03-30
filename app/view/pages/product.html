@@ -1,0 +1,101 @@
+{% extends "layouts/main.html" %}
+
+{% block title %}Novo Produto{% endblock %}
+
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-3">
+    <div>
+        <h2 class="mb-0 fw-semibold">Cadastro de Produto</h2>
+        <small class="text-muted">Preencha os dados do produto</small>
+    </div>
+</div>
+
+<form id="form">
+    <input type="hidden" id="id" name="id">
+    <input type="hidden" id="action" name="action">
+
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-dark text-white py-2 px-3">
+            <small class="fw-semibold"><i class="fa-solid fa-tag me-2"></i>Identificação</small>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="form-label small fw-semibold" for="nome">Nome do Produto</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do produto" autofocus>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold" for="codigo_barra">Código de Barras</label>
+                    <input type="text" class="form-control" id="codigo_barra" name="codigo_barra" placeholder="0000000000000">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold" for="unidade">Unidade</label>
+                    <input type="text" class="form-control" id="unidade" name="unidade" placeholder="UN, KG, CX...">
+                </div>
+                <div class="col-md-9">
+                    <label class="form-label small fw-semibold" for="descricao">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição do produto">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-dark text-white py-2 px-3">
+            <small class="fw-semibold"><i class="fa-solid fa-dollar-sign me-2"></i>Precificação</small>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold" for="preco_compra">Preço de Compra</label>
+                    <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input type="text" class="form-control" id="preco_compra" name="preco_compra" placeholder="0,00">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold" for="margem_lucro">Margem de Lucro</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="margem_lucro" name="margem_lucro" placeholder="0,00">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold" for="preco_venda">
+                        Preço de Venda
+                        <span class="badge bg-success-subtle text-success ms-1" style="font-size: 10px;">auto</span>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">R$</span>
+                        <input type="text" class="form-control" id="preco_venda" name="preco_venda" placeholder="0,00">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body py-2">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="ativo" id="ativo" value="true">
+                <label class="form-check-label" for="ativo">Produto ativo</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-success" id="insert">
+                <i class="fa-solid fa-floppy-disk me-1"></i> Salvar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="file:///{{ assets }}/pages/product.js"></script>
+{% endblock %}

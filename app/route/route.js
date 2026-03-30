@@ -1,6 +1,7 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import Template from '../mixin/Template.js';
 import Customer from '../controller/Customer.js';
+import Product from '../controller/Product.js';
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
@@ -76,5 +77,30 @@ ipcMain.handle('customer:update', async (_e, id, data) => {
 ipcMain.handle('customer:delete', async (_e, id) => {
     const result = await Customer.delete(id);
     if (result.status) broadcastReload('customer:reload');
+    return result;
+});
+ipcMain.handle('product:insert', async (_e, data) => {
+    const result = await Product.insert(data);
+    if (result.status) broadcastReload('product:reload');
+    return result;
+});
+
+ipcMain.handle('product:find', async (_e, where = {}) => {
+    return await Product.find(where);
+});
+
+ipcMain.handle('product:findById', async (_e, id) => {
+    return await Product.findById(id);
+});
+
+ipcMain.handle('product:update', async (_e, id, data) => {
+    const result = await Product.update(id, data);
+    if (result.status) broadcastReload('product:reload');
+    return result;
+});
+
+ipcMain.handle('product:delete', async (_e, id) => {
+    const result = await Product.delete(id);
+    if (result.status) broadcastReload('product:reload');
     return result;
 });

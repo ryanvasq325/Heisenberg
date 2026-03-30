@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% block title %}Produtos{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-3">
+    <div>
+        <h2 class="mb-0 fw-semibold">Lista de Produtos</h2>
+        <small class="text-muted">Gerencie o catálogo de produtos</small>
+    </div>
+    <button class="btn btn-success"
+        onclick="api.window.openModal('pages/product', { width: 900, height: 600, title: 'Cadastrar Produto' })">
+        <i class="fa-solid fa-plus me-1"></i>
+        Novo produto
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <table id="table-products" class="table table-striped table-hover table-bordered mb-0 align-middle" style="width: 100%;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center" style="width: 80px;">Código</th>
+                            <th>Nome</th>
+                            <th>Código de Barras</th>
+                            <th class="text-center">Unidade</th>
+                            <th class="text-end">Preço de Compra</th>
+                            <th class="text-end">Margem de Lucro</th>
+                            <th class="text-end">Preço de Venda</th>
+                            <th>Descrição</th>
+                            <th class="text-center" style="width: 70px;">Ativo</th>
+                            <th class="text-center" style="width: 90px;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="file:///{{ assets }}/pages/list-product.js"></script>
+{% endblock %}

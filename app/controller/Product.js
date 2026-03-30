@@ -1,13 +1,13 @@
 import connection from '../database/Connection.js';
-export default class Customer {
+export default class Product {
     // Tabela no banco
-    static table = 'customer';
+    static table = 'product';
 
     // Mapeamento: índice da coluna no DataTable → nome no banco
-    static #columns = ['id', 'nome', 'cpf', 'rg', 'ativo', null];
+    static #columns = ['id', 'nome', 'codigo_barra', 'unidade', 'preco_compra', 'margem_lucro', 'preco_venda', 'descricao', 'ativo', null];
 
     // Colunas pesquisáveis pelo termo de busca
-    static #searchable = ['nome', 'cpf', 'rg'];
+    static #searchable = ['nome', 'codigo_barra'];
 
     //Insere um novo cliente.
     static async insert(data) {
@@ -18,9 +18,9 @@ export default class Customer {
 
         try {
 
-            const clean = Customer.#sanitize(data);
+            const clean = Product.#sanitize(data);
 
-            const [result] = await connection(Customer.table)
+            const [result] = await connection(Product.table)
                 .insert(clean)
                 .returning('*');
 
@@ -43,7 +43,7 @@ export default class Customer {
         } = data;
 
         //Total sem filtro
-        const [{ count: total }] = await connection(Customer.table)
+        const [{ count: total }] = await connection(Product.table)
             .count('id as count');
 
         //Monta WHERE da busca
@@ -52,7 +52,7 @@ export default class Customer {
         function applySearch(query) {
             if (search) {
                 query.where(function () {
-                    for (const col of Customer.#searchable) {
+                    for (const col of Product.#searchable) {
                         this.orWhereRaw(`CAST("${col}" AS TEXT) ILIKE ?`, [`%${search}%`]);
                     }
                 });
@@ -61,15 +61,15 @@ export default class Customer {
         }
 
         // Total filtrado
-        const filteredQ = connection(Customer.table).count('id as count');
+        const filteredQ = connection(Product.table).count('id as count');
         applySearch(filteredQ);
         const [{ count: filtered }] = await filteredQ;
 
         // Dados paginados
-        const orderColumn = Customer.#columns[column] || 'id';
+        const orderColumn = Product.#columns[column] || 'id';
         const orderDir = orderType === 'desc' ? 'desc' : 'asc';
 
-        const dataQ = connection(Customer.table).select('*');
+        const dataQ = connection(Product.table).select('*');
         applySearch(dataQ);
         dataQ.orderBy(orderColumn, orderDir);
         dataQ.limit(parseInt(limit));
@@ -90,7 +90,7 @@ export default class Customer {
         if (!id) return { status: false, msg: 'ID é obrigatório' };
 
         try {
-            await connection(Customer.table).where({ id }).del();
+            await connection(Product.table).where({ id }).del();
             return { status: true, msg: 'Excluído com sucesso!' };
         } catch (err) {
             return { status: false, msg: 'Erro: ' + err.message };
@@ -106,12 +106,12 @@ export default class Customer {
         }
 
         try {
-            const clean = Customer.#sanitize(data);
+            const clean = Product.#sanitize(data);
 
             // Remove o id do objeto para não tentar atualizar a PK
             delete clean.id;
 
-            const [result] = await connection(Customer.table)
+            const [result] = await connection(Product.table)
                 .where({ id })
                 .update(clean)
                 .returning('*');
@@ -130,7 +130,7 @@ export default class Customer {
     static async findById(id) {
         if (!id) return null;
 
-        const row = await connection(Customer.table)
+        const row = await connection(Product.table)
             .where({ id })
             .first();
 
