@@ -8,6 +8,7 @@ Datatables.SetTable('#table-products', [
     { data: 'id' },
     { data: 'nome' },
     { data: 'codigo_barra' },
+    { data: 'unidade' },
     { data: 'descricao' },
      {
         data: 'preco_compra',
@@ -95,8 +96,8 @@ async function editProduct(id) {
         });
         // 3. Abre a modal
         api.window.openModal('pages/product', {
-            width: 600,
-            height: 500,
+            width: 1200,
+            height: 600,
             title: 'Editar Produto',
         });
     } catch (err) {

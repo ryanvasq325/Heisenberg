@@ -4,7 +4,7 @@ export default class Product {
     static table = 'product';
 
     // Mapeamento: índice da coluna no DataTable → nome no banco
-    static #columns = ['id', 'nome', 'codigo_barra', 'unidade', 'preco_compra', 'preco_venda', 'descricao', 'ativo', 'criado_em', 'atualizado_em', null];
+    static #columns = ['id', 'nome', 'codigo_barra', 'unidade', 'descricao', 'preco_compra', 'preco_venda', 'ativo', 'criado_em', 'atualizado_em', null];
 
     // Colunas pesquisáveis pelo termo de busca
     static #searchable = ['nome', 'codigo_barra', 'unidade', 'preco_compra', 'preco_venda'];

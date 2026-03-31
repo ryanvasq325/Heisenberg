@@ -2,7 +2,7 @@
     "name": "heisenberg",
     "version": "1.0.0",
     "main": "index.js",
-    
+    "type": "module",
     "private": true,
     "scripts": {
         "start": "chcp 65001 >nul && electron .",
