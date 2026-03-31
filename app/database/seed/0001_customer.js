@@ -7,7 +7,7 @@ export async function seed(knex) {
 
   const bathSize = 1000;
 
-  const total = 100000;
+  const total = 10000;
 
   for (let i = 0; i < total; i += bathSize) {
     const batch = Array.from({ length: bathSize }, () => ({

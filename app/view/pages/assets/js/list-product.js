@@ -8,12 +8,39 @@ Datatables.SetTable('#table-products', [
     { data: 'id' },
     { data: 'nome' },
     { data: 'codigo_barra' },
-    { data: 'unidade' },
-    { data: 'preco_compra' },
-    { data: 'margem_lucro' },
-    { data: 'preco_venda' },
     { data: 'descricao' },
-    { data: 'ativo' },
+     {
+        data: 'preco_compra',
+        render: function (data) {
+            return parseFloat(data).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+    },
+    {
+        data: 'preco_venda',
+        render: function (data) {
+            return parseFloat(data).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+    },
+    {
+        data: 'ativo',
+        render: function (data) {
+            return data
+                ? `<span>Ativo <i class="fa-regular fa-square-check"></i></span>`
+                : `<span>Inativo <i class="fa-regular fa-square-full"></i></span>`;
+        }
+    },
+    {
+        data: 'criado_em',
+        render: function (data) {
+            return new Date(data).toLocaleString('pt-BR');
+        }
+    },
+    {
+        data: 'atualizado_em',
+        render: function (data) {
+            return new Date(data).toLocaleString('pt-BR');
+        }
+    },
     {
         data: null,
         orderable: false,

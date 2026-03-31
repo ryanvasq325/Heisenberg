@@ -3,15 +3,6 @@ const Action = document.getElementById('action')
 const Id = document.getElementById('id')
 const form = document.getElementById('form');
 $(document).ready(function(){
-  $("#margem_lucro").maskMoney({
-    suffix: '%',
-    decimal: ',',
-    thousands: '.',
-    precision: 2
-  });
-});
-
-$(document).ready(function(){
   $("#preco_venda").maskMoney({
     prefix:'R$ ',
     allowNegative: true,
@@ -62,13 +53,11 @@ InsertButton.addEventListener('click', async () => {
     let timer = 3000;
     $('#insert').prop('disabled', true);
 
-    const margemLucroLimpa = $("#margem_lucro").maskMoney('unmasked')[0];
     const precoVendaLimpo = $("#preco_venda").maskMoney('unmasked')[0];
     const precoCompraLimpo = $("#preco_compra").maskMoney('unmasked')[0];
 
     const data = formToJson(form);
 
-    data.margem_lucro = margemLucroLimpa;
     data.preco_venda = precoVendaLimpo;
     data.preco_compra = precoCompraLimpo;
 

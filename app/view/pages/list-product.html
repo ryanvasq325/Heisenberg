@@ -36,13 +36,14 @@ block content %}
               <tr>
                 <th class="text-center" style="width: 80px">Código</th>
                 <th>Nome</th>
-                <th>Código de Barras</th>
+                <th>Cód. Barras</th>
                 <th class="text-center">Unidade</th>
                 <th class="text-end">Preço de Compra</th>
-                <th class="text-end">Margem de Lucro</th>
-                <th id="preco_venda" class="text-end">Preço de Venda</th>
+                <th class="text-end">Preço de Venda</th>
                 <th>Descrição</th>
                 <th class="text-center" style="width: 70px">Ativo</th>
+                <th>Criado em</th>
+                <th>Atualizado em</th>
                 <th class="text-center" style="width: 90px">Ações</th>
               </tr>
             </thead>
@@ -54,5 +55,9 @@ block content %}
   </form>
 </div>
 {% endblock %} {% block scripts %}
-<script defer type="module" src="file:///{{ assets }}/js/list-product.js"></script>
+<script
+  defer
+  type="module"
+  src="file:///{{ assets }}/js/list-product.js"
+></script>
 {% endblock %}

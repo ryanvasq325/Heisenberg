@@ -69,8 +69,8 @@ nunjucksEnv.addGlobal('assets', ASSETS_PATH);
 // Útil para importar libs direto do node_modules no HTML: {{ modules }}/bootstrap/...
 nunjucksEnv.addGlobal('modules', MODULES_PATH);
 // Registra o nome da aplicação como variável global
-// Pode ser exibido em qualquer template assim: {{ appName }} → "DESKIVO"
-nunjucksEnv.addGlobal('appName', 'HEISENBERG');
+// Pode ser exibido em qualquer template assim: {{ appName }} → "HEISENBERG"
+nunjucksEnv.addGlobal('appName', 'Heisenberg');
 // Registra se está em produção como variável global
 // Permite usar condicionais nos templates: {% if isProd %} ... {% endif %}
 nunjucksEnv.addGlobal('isProd', IS_PROD);
