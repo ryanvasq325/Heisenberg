@@ -1,86 +1,30 @@
-<style>
-  :root {
-    --toxic-green: #a8ff00;
-    --dark-bg: #0d0d0d;
-    --dropdown-bg: #0f0f0f;
-  }
-  .navbar-heisenberg { background-color: var(--dark-bg) !important; }
-  .text-neon { color: var(--toxic-green) !important; }
-  
-  .nav-link-custom { color: #6c757d !important; transition: 0.3s; }
-  .nav-link-custom:hover, 
-  .nav-link-custom.active { 
-    color: var(--toxic-green) !important; 
-  }
-  .nav-link-custom.active { border-bottom: 2px solid var(--toxic-green); }
-  .dropdown-heisenberg { 
-    background-color: var(--dropdown-bg) !important; 
-    border-left: 2px solid var(--toxic-green) !important; 
-  }
-  .dropdown-item-heisenberg { color: #6c757d !important; transition: 0.2s; }
-  .dropdown-item-heisenberg:hover { 
-    background-color: #0a1a00 !important; 
-    color: var(--toxic-green) !important; 
-  }
-  .badge-version { 
-    background: #1a1a1a !important; 
-    color: var(--toxic-green) !important; 
-    border: 1px solid var(--toxic-green) !important; 
-  }
-  .status-dot { 
-    background-color: var(--toxic-green) !important; 
-    box-shadow: 0 0 8px var(--toxic-green); 
-  }
-</style>
-
-<nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary px-4 navbar-heisenberg">
-  <div class="container-fluid px-0">
-    
-    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#">
-      <span class="text-neon fs-3">⬡</span>
-      <span style="font-family: 'Oswald', sans-serif;">{{ appName }}</span>
-      <span class="badge rounded-0 fw-normal badge-version" style="font-family: 'Share Tech Mono', monospace;">v2.1</span>
-    </a>
-
-    <button class="navbar-toggler border-secondary rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">{{appName}}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="collapse navbar-collapse" id="navContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link nav-link-custom active px-3" href="#">HOME</a>
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-custom px-3" href="#">LINK</a>
+          <a class="nav-link" href="#">Link</a>
         </li>
-        
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle nav-link-custom px-3" href="#" role="button" data-bs-toggle="dropdown">
-            CADASTRO
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cadastro
           </a>
-          <ul class="dropdown-menu rounded-0 border-0 dropdown-heisenberg">
-            <li>
-              <a class="dropdown-item dropdown-item-heisenberg py-2" onclick="api.window.open('pages/list-customer', { title: 'Clientes' })">
-                CLIENTE
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item dropdown-item-heisenberg py-2" onclick="api.window.open('pages/list-product', { title: 'Produtos' })">
-                PRODUTO
-              </a>
-            </li>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" onclick="api.window.open('pages/list-customer', { title: 'Clientes' })" style="cursor:pointer;">Cliente</a></li>
+            <li><a class="dropdown-item" onclick="api.window.open('pages/list-product', { title: 'Produtos' })"style="cursor:pointer;">Produto</a></li>
+            <li><a class="dropdown-item" onclick="api.window.open('pages/list-supplier', { title: 'Fornecedores' })"style="cursor:pointer;">Fornecedor</a></li>
+            <li><a class="dropdown-item" onclick="api.window.open('pages/list-company', { title: 'Empresas' })"style="cursor:pointer;">Empresa</a></li>
+            <li><a class="dropdown-item" onclick="api.window.open('pages/list-users', { title: 'Usuario' })"style="cursor:pointer;">Usuario</a></li>
           </ul>
         </li>
       </ul>
-
-      <div class="d-flex align-items-center gap-2">
-        <small class="text-secondary" style="font-family: 'Share Tech Mono', monospace;">
-          STATUS: <span class="text-neon">OPERACIONAL</span>
-        </small>
-        <div class="rounded-circle status-dot" style="width: 8px; height: 8px;"></div>
-      </div>
     </div>
   </div>
 </nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

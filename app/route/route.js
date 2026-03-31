@@ -2,6 +2,7 @@ import { ipcMain, BrowserWindow } from 'electron';
 import Template from '../mixin/Template.js';
 import Customer from '../controller/Customer.js';
 import Product from '../controller/Product.js';
+import Supplier from '../controller/Supplier.js';
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
@@ -79,6 +80,7 @@ ipcMain.handle('customer:delete', async (_e, id) => {
     if (result.status) broadcastReload('customer:reload');
     return result;
 });
+// PRODUTOS
 ipcMain.handle('product:insert', async (_e, data) => {
     const result = await Product.insert(data);
     if (result.status) broadcastReload('product:reload');
@@ -102,5 +104,31 @@ ipcMain.handle('product:update', async (_e, id, data) => {
 ipcMain.handle('product:delete', async (_e, id) => {
     const result = await Product.delete(id);
     if (result.status) broadcastReload('product:reload');
+    return result;
+});
+// fornecedores
+ipcMain.handle('supplier:insert', async (_e, data) => {
+    const result = await Supplier.insert(data);
+    if (result.status) broadcastReload('supplier:reload');
+    return result;
+});
+
+ipcMain.handle('supplier:find', async (_e, where = {}) => {
+    return await Supplier.find(where);
+});
+
+ipcMain.handle('supplier:findById', async (_e, id) => {
+    return await Supplier.findById(id);
+});
+
+ipcMain.handle('supplier:update', async (_e, id, data) => {
+    const result = await Supplier.update(id, data);
+    if (result.status) broadcastReload('supplier:reload');
+    return result;
+});
+
+ipcMain.handle('supplier:delete', async (_e, id) => {
+    const result = await Supplier.delete(id);
+    if (result.status) broadcastReload('supplier:reload');
     return result;
 });

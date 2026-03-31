@@ -2,7 +2,7 @@
     "name": "heisenberg",
     "version": "1.0.0",
     "main": "index.js",
-    
+    "type": "module",
     "private": true,
     "scripts": {
         "start": "chcp 65001 >nul && electron .",
@@ -90,6 +90,7 @@
         "dotenv": "^17.3.1",
         "inputmask": "^5.0.9",
         "jquery": "^4.0.0",
+        "jquery-maskmoney": "^3.0.2",
         "knex": "^3.2.5",
         "nunjucks": "^3.2.4",
         "pg": "^8.20.0",

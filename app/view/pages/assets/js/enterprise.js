@@ -3,11 +3,11 @@ const InsertButton = document.getElementById('insert');
 const Action = document.getElementById('action')
 const Id = document.getElementById('id')
 const form = document.getElementById('form');
-Inputmask('999.999.999-99').mask('#cpf');
+Inputmask('99.99.99/9999-99').mask('#cnpj_cpf');
 
 //  CARREGA DADOS DE EDIÇÃO (se existirem)
 (async () => {
-    const editData = await api.temp.get('product:edit');
+    const editData = await api.temp.get('enterprise:edit');
     if (editData) {
         // Modo edição
         Action.value = editData.action || 'e';
@@ -40,8 +40,8 @@ InsertButton.addEventListener('click', async () => {
     try {
 
         const response = Action.value === 'c'
-            ? await api.product.insert(data)
-            : await api.product.update(id, data);
+            ? await api.enterprise.insert(data)
+            : await api.enterprise.update(id, data);
 
         if (!response.status) {
             toast('error', 'Erro', response.msg, timer);

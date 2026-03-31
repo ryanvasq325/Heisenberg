@@ -1,17 +1,17 @@
 {% extends "layouts/main.html" %}
 
-{% block title %}Clientes{% endblock %}
+{% block title %}Empresas{% endblock %}
 
 {% block content %}
 <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-3">
     <div>
-        <h2 class="mb-0 fw-semibold">Lista de Clientes</h2>
-        <small class="text-muted">Gerencie o cadastro de clientes</small>
+        <h2 class="mb-0 fw-semibold">Lista de Empresas</h2>
+        <small class="text-muted">Gerencie o cadastro de Empresas</small>
     </div>
     <button class="btn btn-success"
-        onclick="api.window.openModal('pages/customer', { width: 900, height: 600, title: 'Cadastrar Cliente' })">
+        onclick="api.window.openModal('pages/customer', { width: 900, height: 600, title: 'Cadastrar empresa' })">
         <i class="fa-solid fa-plus me-1"></i>
-        Novo cliente
+        Novo empresa
     </button>
 </div>
 
@@ -23,8 +23,11 @@
                     <thead class="table-dark">
                         <tr>
                             <th class="text-center" style="width: 80px;">ID</th>
-                            <th>Nome</th>
-                            <th class="text-center">CPF</th>
+                            <th>Fantasia</th>
+                            <th class="text-center">Razão Social</th>
+                            <th class="text-center">CNPJ</th>
+                            <th class="text-center">IE</th>
+                            <th class="text-center">Ativo</th>
                             <th class="text-center" style="width: 90px;">Ações</th>
                         </tr>
                     </thead>
@@ -37,5 +40,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script defer type="module" src="file:///{{ assets }}/js/list-customer.js"></script>
+<script defer type="module" src="file:///{{ assets }}/js/list-enterprise.js"></script>
 {% endblock %}

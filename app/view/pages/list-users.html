@@ -22,9 +22,12 @@
                 <table id="table-customers" class="table table-striped table-hover table-bordered mb-0 align-middle" style="width: 100%;">
                     <thead class="table-dark">
                         <tr>
-                            <th class="text-center" style="width: 80px;">ID</th>
+                            <th class="text-center" style="width: 80px;">Código</th>
                             <th>Nome</th>
+                            <th>Sobrenome</th>
                             <th class="text-center">CPF</th>
+                            <th class="text-center">RG</th>
+                            <th class="text-center">Ativo</th>
                             <th class="text-center" style="width: 90px;">Ações</th>
                         </tr>
                     </thead>
@@ -37,5 +40,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script defer type="module" src="file:///{{ assets }}/js/list-customer.js"></script>
+<script defer type="module" src="file:///{{ assets }}/js/list-users.js"></script>
 {% endblock %}
