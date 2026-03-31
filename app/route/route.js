@@ -3,6 +3,7 @@ import Template from '../mixin/Template.js';
 import Customer from '../controller/Customer.js';
 import Product from '../controller/Product.js';
 import Supplier from '../controller/Supplier.js';
+import Users from '../controller/Users.js';
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
@@ -106,7 +107,7 @@ ipcMain.handle('product:delete', async (_e, id) => {
     if (result.status) broadcastReload('product:reload');
     return result;
 });
-// fornecedores
+// FORNECEDORES
 ipcMain.handle('supplier:insert', async (_e, data) => {
     const result = await Supplier.insert(data);
     if (result.status) broadcastReload('supplier:reload');
@@ -130,5 +131,31 @@ ipcMain.handle('supplier:update', async (_e, id, data) => {
 ipcMain.handle('supplier:delete', async (_e, id) => {
     const result = await Supplier.delete(id);
     if (result.status) broadcastReload('supplier:reload');
+    return result;
+});
+// USUARIOS
+ipcMain.handle('users:insert', async (_e, data) => {
+    const result = await Users.insert(data);
+    if (result.status) broadcastReload('users:reload');
+    return result;
+});
+
+ipcMain.handle('users:find', async (_e, where = {}) => {
+    return await Users.find(where);
+});
+
+ipcMain.handle('users:findById', async (_e, id) => {
+    return await Users.findById(id);
+});
+
+ipcMain.handle('users:update', async (_e, id, data) => {
+    const result = await Users.update(id, data);
+    if (result.status) broadcastReload('users:reload');
+    return result;
+});
+
+ipcMain.handle('users:delete', async (_e, id) => {
+    const result = await Users.delete(id);
+    if (result.status) broadcastReload('users:reload');
     return result;
 });
