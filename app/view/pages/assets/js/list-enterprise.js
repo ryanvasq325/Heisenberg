@@ -6,10 +6,10 @@ api.enterprise.onReload(() => {
 
 Datatables.SetTable('#table-enterprises', [
     { data: 'id' },
-    { data: 'nome_fantasia' },
+    { data: 'fantasia' },
     { data: 'razao_social' },
-    { data: 'cnpj_cpf' },
-    { data: 'rg_ie' },
+    { data: 'cnpj' },
+    { data: 'ie' },
     { data: 'ativo' },
     {
         data: null,

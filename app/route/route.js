@@ -4,6 +4,7 @@ import Customer from '../controller/Customer.js';
 import Product from '../controller/Product.js';
 import Supplier from '../controller/Supplier.js';
 import Users from '../controller/Users.js';
+import Enterprise from '../controller/Enterprise.js';
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
@@ -22,21 +23,28 @@ ipcMain.handle('dashboard:getStats', async () => {
         
         const productsResult = await Product.find() || {};
         const customersResult = await Customer.find() || {};
+        const usersResult = await Users.find() || {};
         const suppliersResult = await Supplier.find() || {};
+        const enterprisesResult = await Enterprise.find() || {};
 
         console.log('Estatísticas do Banco:', {
             produtos: productsResult.recordsTotal,
-            clientes: customersResult.recordsTotal
+            clientes: customersResult.recordsTotal,
+            usuarios: usersResult.recordsTotal,
+            empresas: enterprisesResult.recordsTotal,
+            fornecedores: suppliersResult.recordsTotal
         });
 
         return {
             totalProducts: productsResult.recordsTotal || 0,
             totalCustomers: customersResult.recordsTotal || 0,
-            totalSuppliers: suppliersResult.recordsTotal || 0
+            totalUsers: usersResult.recordsTotal || 0,
+            totalSuppliers: suppliersResult.recordsTotal || 0,
+            totalEnterprises: enterprisesResult.recordsTotal || 0
         };
     } catch (error) {
         console.error("Erro ao processar estatísticas no Main Process:", error);
-        return { totalProducts: 0, totalCustomers: 0, totalSuppliers: 0 };
+        return { totalProducts: 0, totalCustomers: 0, totalSuppliers: 0, totalEnterprises: 0, totalUsers: 0 };
     }
 });
 // --- WINDOW ---
@@ -183,5 +191,31 @@ ipcMain.handle('users:update', async (_e, id, data) => {
 ipcMain.handle('users:delete', async (_e, id) => {
     const result = await Users.delete(id);
     if (result.status) broadcastReload('users:reload');
+    return result;
+});
+// --- EMPRESAS ---
+ipcMain.handle('enterprise:insert', async (_e, data) => {
+    const result = await Enterprise.insert(data);
+    if (result.status) broadcastReload('enterprise:reload');
+    return result;
+});
+
+ipcMain.handle('enterprise:find', async (_e, where = {}) => {
+    return await Enterprise.find(where);
+});
+
+ipcMain.handle('enterprise:findById', async (_e, id) => {
+    return await Enterprise.findById(id);
+});
+
+ipcMain.handle('enterprise:update', async (_e, id, data) => {
+    const result = await Enterprise.update(id, data);
+    if (result.status) broadcastReload('enterprise:reload');
+    return result;
+});
+
+ipcMain.handle('enterprise:delete', async (_e, id) => {
+    const result = await Enterprise.delete(id);
+    if (result.status) broadcastReload('enterprise:reload');
     return result;
 });

@@ -3,7 +3,7 @@ const InsertButton = document.getElementById('insert');
 const Action = document.getElementById('action')
 const Id = document.getElementById('id')
 const form = document.getElementById('form');
-Inputmask('99.99.99/9999-99').mask('#cnpj_cpf');
+Inputmask('99.99.99/9999-99').mask('#cnpj');
 
 //  CARREGA DADOS DE EDIÇÃO (se existirem)
 (async () => {

@@ -57,4 +57,14 @@ contextBridge.exposeInMainWorld('api', {
             ipcRenderer.on('users:reload', () => callback());
         },
     },
+    enterprise: {
+        insert(data) { return ipcRenderer.invoke('enterprise:insert', data); },
+        find(where) { return ipcRenderer.invoke('enterprise:find', where); },
+        findById(id) { return ipcRenderer.invoke('enterprise:findById', id); },
+        update(id, data) { return ipcRenderer.invoke('enterprise:update', id, data); },
+        delete(id) { return ipcRenderer.invoke('enterprise:delete', id); },
+        onReload(callback) {
+            ipcRenderer.on('enterprise:reload', () => callback());
+        },
+    },
 });
