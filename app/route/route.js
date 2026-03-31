@@ -19,20 +19,17 @@ function broadcastReload(channel) {
 // --- DASHBOARD / ESTATÍSTICAS ---
 ipcMain.handle('dashboard:getStats', async () => {
     try {
-        // Chamada dos métodos find() dos controllers
-        // Eles retornam objetos no formato: { recordsTotal: X, data: [...], ... }
+        
         const productsResult = await Product.find() || {};
         const customersResult = await Customer.find() || {};
         const suppliersResult = await Supplier.find() || {};
 
-        // Log de depuração no terminal do VS Code para confirmar os valores
         console.log('Estatísticas do Banco:', {
             produtos: productsResult.recordsTotal,
             clientes: customersResult.recordsTotal
         });
 
         return {
-            // Acessamos 'recordsTotal' que é o valor inteiro definido no seu Controller
             totalProducts: productsResult.recordsTotal || 0,
             totalCustomers: customersResult.recordsTotal || 0,
             totalSuppliers: suppliersResult.recordsTotal || 0

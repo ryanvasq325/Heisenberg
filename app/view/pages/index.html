@@ -44,36 +44,76 @@
         </div>
     </div>
 </div>
+    <div class="col-lg-6 col-6">
+        <div class="card text-bg-danger border-0 shadow-sm h-100" role="button" onclick="api.window.open('pages/list-supplier', { title: 'Fornecedores' })">
+            <div class="card-body d-flex justify-content-between align-items-start p-4">
+                <div>
+                    <h3 class="display-5 fw-bold mb-0" id="count-suppliers">{{ totalSupplier | default(0) }}</h3>
+                    <p class="card-text fs-5 opacity-75">Fornecedores</p>
+                </div>
+                <div class="opacity-25">
+                    <i class="fa-solid fa-barcode fa-4x"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-black bg-opacity-10 border-0 text-center py-2 text-white-50 small">
+                Mais informações <i class="fa-solid fa-circle-arrow-right ms-1"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-6">
+        <div class="card text-bg-light border-0 shadow-sm h-100" role="button" onclick="api.window.open('pages/list-enterprise', { title: 'Empresas' })">
+            <div class="card-body d-flex justify-content-between align-items-start p-4">
+                <div class="text-dark">
+                    <h3 class="display-5 fw-bold mb-0" id="count-enterprises">{{ totalEnterprise | default(0) }}</h3>
+                    <p class="card-text fs-5 opacity-75">Empresas</p>
+                </div>
+                <div class="opacity-25 text-dark">
+                    <i class="fa-solid fa-user-group fa-4x"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-black bg-opacity-10 border-0 text-center py-2 text-dark text-opacity-75 small">
+                Mais informações <i class="fa-solid fa-circle-arrow-right ms-1"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     async function refreshDashboard() {
         try {
-            // Chama o canal que criamos no preload
+            
             const stats = await api.dashboard.getStats();
             
-            console.log("Dados recebidos:", stats); // Verifique o console do Electron (Ctrl+Shift+I)
+            console.log("Dados recebidos:", stats); 
 
             const prodElem = document.getElementById('count-products');
+            const enterElem = document.getElementById('count-enterprises');
             const custElem = document.getElementById('count-customers');
+            const fornElem = document.getElementById('count-suppliers');
 
-            // Verificamos se o objeto stats existe e se as propriedades estão corretas
+            
             if (stats) {
                 if (prodElem) prodElem.innerText = stats.totalProducts ?? 0;
+                if (enterElem) prodElem.innerText = stats.totalProducts ?? 0;
                 if (custElem) custElem.innerText = stats.totalCustomers ?? 0;
+                if (fornElem) custElem.innerText = stats.totalCustomers ?? 0;
             }
         } catch (err) {
             console.error("Erro ao atualizar dashboard:", err);
-            // Em caso de erro, define como 0 para não exibir undefined
+
             document.getElementById('count-products').innerText = "0";
+            document.getElementById('count-enterprises').innerText = "0";
             document.getElementById('count-customers').innerText = "0";
+            document.getElementById('count-suppliers').innerText = "0";
         }
     }
-
-    // Executa ao carregar
+    
     window.addEventListener('DOMContentLoaded', refreshDashboard);
 
-    // Mantém atualizado quando houver mudanças nas outras janelas
     api.product.onReload(refreshDashboard);
+    api.enterprise.onReload(refreshDashboard);
     api.customer.onReload(refreshDashboard);
+    api.supplier.onReload(refreshDashboard);
 </script>
 {% endblock %}
