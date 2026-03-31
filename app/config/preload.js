@@ -8,7 +8,11 @@ contextBridge.exposeInMainWorld('api', {
         openModal(name, opts) { return ipcRenderer.invoke('window:openModal', name, opts); },
         close() { return ipcRenderer.invoke('window:close'); }
     },
-    // Armazena dados temporários entre janelas
+    
+    dashboard: {
+        getStats() { return ipcRenderer.invoke('dashboard:getStats'); }
+    },
+    
     temp: {
         set(key, data) { return ipcRenderer.invoke('temp:set', key, data); },
         get(key) { return ipcRenderer.invoke('temp:get', key); },

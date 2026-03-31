@@ -16,7 +16,33 @@ function broadcastReload(channel) {
     }
 }
 
-//  WINDOW
+// --- DASHBOARD / ESTATÍSTICAS ---
+ipcMain.handle('dashboard:getStats', async () => {
+    try {
+        // Chamada dos métodos find() dos controllers
+        // Eles retornam objetos no formato: { recordsTotal: X, data: [...], ... }
+        const productsResult = await Product.find() || {};
+        const customersResult = await Customer.find() || {};
+        const suppliersResult = await Supplier.find() || {};
+
+        // Log de depuração no terminal do VS Code para confirmar os valores
+        console.log('Estatísticas do Banco:', {
+            produtos: productsResult.recordsTotal,
+            clientes: customersResult.recordsTotal
+        });
+
+        return {
+            // Acessamos 'recordsTotal' que é o valor inteiro definido no seu Controller
+            totalProducts: productsResult.recordsTotal || 0,
+            totalCustomers: customersResult.recordsTotal || 0,
+            totalSuppliers: suppliersResult.recordsTotal || 0
+        };
+    } catch (error) {
+        console.error("Erro ao processar estatísticas no Main Process:", error);
+        return { totalProducts: 0, totalCustomers: 0, totalSuppliers: 0 };
+    }
+});
+// --- WINDOW ---
 ipcMain.handle('window:open', (_e, name, opts = {}) => {
     const win = Template.create(name, opts);
     Template.loadView(win, name);
@@ -42,7 +68,7 @@ ipcMain.handle('window:close', (e) => {
     getWin(e)?.close();
 });
 
-//  TEMP STORE — dados temporários entre janelas
+// --- TEMP STORE ---
 let tempData = {};
 
 ipcMain.handle('temp:set', (_e, key, data) => {
@@ -55,7 +81,7 @@ ipcMain.handle('temp:get', (_e, key) => {
     return data;
 });
 
-//  CUSTOMER
+// --- CUSTOMER ---
 ipcMain.handle('customer:insert', async (_e, data) => {
     const result = await Customer.insert(data);
     if (result.status) broadcastReload('customer:reload');
@@ -81,7 +107,8 @@ ipcMain.handle('customer:delete', async (_e, id) => {
     if (result.status) broadcastReload('customer:reload');
     return result;
 });
-// PRODUTOS
+
+// --- PRODUTOS ---
 ipcMain.handle('product:insert', async (_e, data) => {
     const result = await Product.insert(data);
     if (result.status) broadcastReload('product:reload');
@@ -107,7 +134,8 @@ ipcMain.handle('product:delete', async (_e, id) => {
     if (result.status) broadcastReload('product:reload');
     return result;
 });
-// FORNECEDORES
+
+// --- FORNECEDORES ---
 ipcMain.handle('supplier:insert', async (_e, data) => {
     const result = await Supplier.insert(data);
     if (result.status) broadcastReload('supplier:reload');
@@ -133,7 +161,8 @@ ipcMain.handle('supplier:delete', async (_e, id) => {
     if (result.status) broadcastReload('supplier:reload');
     return result;
 });
-// USUARIOS
+
+// --- USUARIOS ---
 ipcMain.handle('users:insert', async (_e, data) => {
     const result = await Users.insert(data);
     if (result.status) broadcastReload('users:reload');
