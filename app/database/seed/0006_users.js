@@ -9,7 +9,8 @@ export async function seed(knex) {
 
   for (let i = 0; i < total; i += bathSize) {
     const batch = Array.from({ length: bathSize }, () => ({
-      nome: faker.person.fullName(),
+      nome: faker.person.firstName(),
+      sobrenome: faker.person.lastName(),
       cpf: faker.string.numeric(11),
       rg: faker.string.numeric(9),
       ativo: faker.datatype.boolean(),

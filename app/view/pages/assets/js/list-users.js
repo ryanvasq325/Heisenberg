@@ -9,8 +9,8 @@ Datatables.SetTable('#table-users', [
     { data: 'nome' },
     { data: 'sobrenome' },
     { data: 'cpf' },
-    { data: 'ativo' },
     { data: 'rg' },
+    { data: 'ativo' },
     {
         data: null,
         orderable: false,
