@@ -17,6 +17,8 @@ exports.seed = async function (knex) {
             preco_venda: faker.commerce.price({ min: 155, max: 400 }),
             descricao: faker.commerce.productDescription(),
             ativo: faker.datatype.boolean(),
+            criado_em: faker.date.past(),
+            atualizado_em: faker.date.recent(),
         }));
         await knex('product').insert(batch);
     }

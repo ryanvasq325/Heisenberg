@@ -8,10 +8,10 @@ export async function seed(knex) {
 
     for (let i = 0; i < total; i += batchSize) {
         const batch = Array.from({ length: batchSize }, () => ({
-            fantasia: faker.company.name(),
+            nome_fantasia: faker.company.name(),
             razao_social: faker.company.name() + " LTDA",
-            cnpj: faker.helpers.replaceSymbols('##.###.###/0001-##'), 
-            ie: faker.string.numeric(9), 
+            cnpj_cpf: faker.helpers.replaceSymbols('##.###.###/0001-##'), 
+            rg_ie: faker.string.numeric(9), 
             ativo: faker.datatype.boolean(),
         }));
         

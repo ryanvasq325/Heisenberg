@@ -1,16 +1,14 @@
-import {Datatables} from "../components/Datatables.js"
-
+import { Datatables } from "../components/Datatables.js"
 api.product.onReload(() => {
     $('#table-products').DataTable().ajax.reload(null, false);
 });
-
+// Inicializa a tabela
 Datatables.SetTable('#table-products', [
     { data: 'id' },
     { data: 'nome' },
     { data: 'codigo_barra' },
     { data: 'unidade' },
-    { data: 'descricao' },
-     {
+    {
         data: 'preco_compra',
         render: function (data) {
             return parseFloat(data).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -22,6 +20,7 @@ Datatables.SetTable('#table-products', [
             return parseFloat(data).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
     },
+    { data: 'descricao' },
     {
         data: 'ativo',
         render: function (data) {
@@ -58,7 +57,6 @@ Datatables.SetTable('#table-products', [
         }
     }
 ]).getData(filter => api.product.find(filter));
-
 async function deleteProduct(id) {
     const result = await Swal.fire({
         title: 'Tem certeza?',
@@ -80,10 +78,9 @@ async function deleteProduct(id) {
         }
     }
 }
-
 async function editProduct(id) {
     try {
-        // 1. Busca os dados completos do cliente
+        // 1. Busca os dados completos do produto
         const product = await api.product.findById(id);
         if (!product) {
             toast('error', 'Erro', 'Produto não encontrado.');
@@ -96,8 +93,8 @@ async function editProduct(id) {
         });
         // 3. Abre a modal
         api.window.openModal('pages/product', {
-            width: 1200,
-            height: 600,
+            width: 800,
+            height: 420,
             title: 'Editar Produto',
         });
     } catch (err) {

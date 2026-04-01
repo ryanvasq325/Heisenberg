@@ -117,7 +117,7 @@ export default class Product {
                 .returning('*');
 
             if (!result) {
-                return { status: false, msg: 'Cliente não encontrado', data: [] };
+                return { status: false, msg: 'Produto não encontrado', data: [] };
             }
 
             return { status: true, msg: 'Atualizado com sucesso!', id: result.id, data: [result] };
@@ -126,7 +126,7 @@ export default class Product {
         }
     }
 
-    //Retorna apenas um cliente pelo seu ID
+    //Retorna apenas um Produto pelo seu ID
     static async findById(id) {
         if (!id) return null;
 

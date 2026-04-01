@@ -4,9 +4,9 @@ export function up(knex) {
             table.text('nome').notNullable();
             table.text('codigo_barra');
             table.text('unidade');
-            table.text('descricao');
             table.decimal('preco_compra', 18, 4).defaultTo(0);
             table.decimal('preco_venda', 18, 4).defaultTo(0);
+            table.text('descricao');
             table.boolean('ativo').defaultTo(true);
         table.boolean('excluido').defaultTo(false);
         table.timestamp('criado_em', { useTz: false })
