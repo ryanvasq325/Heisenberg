@@ -8,7 +8,15 @@
         "build:win": "electron-builder --win",
         "build:linux": "electron-builder --linux",
         "build:mac": "electron-builder --mac",
-        "build:all": "electron-builder --win --linux --mac"
+        "build:all": "electron-builder --win --linux --mac",
+        "test": "vitest",
+        "test:unit": "vitest --project unit",
+        "test:int": "vitest --project integration",
+        "test:feat": "vitest --project feature",
+        "test:fact": "vitest --project factories",
+        "test:arch": "vitest --project architecture",
+        "test:run": "vitest run",
+        "test:coverage": "vitest run --coverage"
     },
     "build": {
         "appId": "com.heisenberg.app",
@@ -78,7 +86,8 @@
     "devDependencies": {
         "electron": "^41.0.4",
         "electron-builder": "^25.1.8",
-        "jest": "^30.3.0"
+        "jest": "^30.3.0",
+        "vitest": "^4.1.2"
     },
     "dependencies": {
         "@faker-js/faker": "^10.4.0",
