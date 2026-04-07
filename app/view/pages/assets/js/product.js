@@ -59,7 +59,6 @@ totalTax.addEventListener('keypress', () => {
         document.getElementById('total_imposto_value')
 });
 
-
 (async () => {
     const editData = await api.temp.get('product:edit');
     if (editData) {
