@@ -51,12 +51,12 @@ $(document).ready(function(){
   });
 });
 
-totalTax.addEventListener('keypress', () => {
+totalTax.addEventListener('keydown', () => {
     const tax = String(totalTax.value).replace('%', '').replace(',', '.');
-    const result = SellingPriceCalculator.create()
+    const result =SellingPriceCalculator.create()
         .addTotalTax(tax)
         .getData();
-        document.getElementById('total_imposto_value')
+    document.getElementById('total_importo_value').innerHTML = `${result.total_imposto}`;
 });
 
 (async () => {
@@ -100,7 +100,7 @@ InsertButton.addEventListener('click', async () => {
     data.preco_compra = precoCompraLimpo;
     data.margem_lucro = margemLucroLimpa;
     data.custo_operacional = custoOperacionalLimpo;
-    data.total_impostos = totalImpostosLimpo;
+    data.total_imposto = totalImpostosLimpo;
 
     let id = Action.value !== 'c' ? Id.value : null;
 
