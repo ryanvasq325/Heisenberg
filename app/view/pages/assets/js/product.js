@@ -1,7 +1,9 @@
+import { SellingPriceCalculator } from '../components/SellingPriceCalculator.js';
 const InsertButton = document.getElementById('insert');
 const Action = document.getElementById('action')
 const Id = document.getElementById('id')
 const form = document.getElementById('form');
+const totalTax = document.getElementById('total_imposto');
 $(document).ready(function(){
   $("#preco_venda").maskMoney({
     prefix:'R$ ',
@@ -21,7 +23,41 @@ $(document).ready(function(){
     affixesStay: true
   });
 });
+$(document).ready(function(){
+  $("#custo_operacional").maskMoney({
+    prefix:'% ',
+    allowNegative: true,
+    thousands:'.',
+    decimal:',',
+    affixesStay: true
+  });
+});
+$(document).ready(function(){
+  $("#margem_lucro").maskMoney({
+    prefix:'% ',
+    allowNegative: true,
+    thousands:'.',
+    decimal:',',
+    affixesStay: true
+  });
+});
+$(document).ready(function(){
+  $("#total_imposto").maskMoney({
+    prefix:'% ',
+    allowNegative: true,
+    thousands:'.',
+    decimal:',',
+    affixesStay: true
+  });
+});
 
+totalTax.addEventListener('keypress', () => {
+    const tax = String(totalTax.value).replace('%', '').replace(',', '.');
+    const result = SellingPriceCalculator.create()
+        .addTotalTax(tax)
+        .getData();
+        document.getElementById('total_imposto_value')
+});
 
 
 (async () => {
@@ -55,11 +91,17 @@ InsertButton.addEventListener('click', async () => {
 
     const precoVendaLimpo = $("#preco_venda").maskMoney('unmasked')[0];
     const precoCompraLimpo = $("#preco_compra").maskMoney('unmasked')[0];
+    const margemLucroLimpa = $("#margem_lucro").maskMoney('unmasked')[0];
+    const custoOperacionalLimpo = $("#custo_operacional").maskMoney('unmasked')[0];
+    const totalImpostosLimpo = $("#total_imposto").maskMoney('unmasked')[0];
 
     const data = formToJson(form);
 
     data.preco_venda = precoVendaLimpo;
     data.preco_compra = precoCompraLimpo;
+    data.margem_lucro = margemLucroLimpa;
+    data.custo_operacional = custoOperacionalLimpo;
+    data.total_impostos = totalImpostosLimpo;
 
     let id = Action.value !== 'c' ? Id.value : null;
 
