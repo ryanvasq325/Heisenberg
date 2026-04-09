@@ -1,127 +1,122 @@
 {% extends "layouts/main.html" %}
-
-{% block title %}Novo Produto{% endblock %}
+{% block styles %}
+	<link rel="stylesheet" href="file:///{{ assets }}//css/product.css">
+{% endblock %}
+{% block title %}Novo Produto
+{% endblock %}
 
 {% block content %}
-
-<div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-3">
-    <div>
-        <h2 class="mb-0 fw-semibold">Cadastro de Produto</h2>
-        <small class="text-muted">Preencha os dados do produto</small>
-    </div>
-</div>
-
-<form id="form">
-    <input type="hidden" id="id" name="id">
-    <input type="hidden" id="action" name="action">
-    <input type="hidden" name="margem_lucro_db" id="margem_lucro_db" <div class="card shadow-sm border-0 mb-3">
-    <div class="card-header bg-dark text-white py-2 px-3">
-        <small class="fw-semibold"><i class="fa-solid fa-tag me-2"></i>Identificação</small>
-    </div>
-    <div class="card-body">
-        <div class="row g-3">
-            <div class="col-md-8">
-                <label class="form-label small fw-semibold" for="nome">Nome do Produto</label>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do produto" autofocus>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label small fw-semibold" for="codigo_barra">Código de Barras</label>
-                <input type="text" class="form-control" id="codigo_barra" name="codigo_barra"
-                    placeholder="0000000000000">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label small fw-semibold" for="unidade">Unidade</label>
-                <input type="text" class="form-control" id="unidade" name="unidade" placeholder="UN, KG, CX...">
-            </div>
-            <div class="col-md-9">
-                <label class="form-label small fw-semibold" for="descricao">Descrição</label>
-                <input type="text" class="form-control" id="descricao" name="descricao"
-                    placeholder="Descrição do produto">
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="card shadow-sm border-0 mb-3">
-        <div class="card-header bg-dark text-white py-2 px-3">
-            <small class="fw-semibold"><i class="fa-solid fa-dollar-sign me-2"></i>Precificação</small>
-        </div>
-        <div class="card-body">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label small fw-semibold" for="preco_compra">Preço de Compra</label>
-                    <div class="input-group">
-                        <span class="input-group-text">R$</span>
-                        <input type="text" class="form-control" id="preco_compra" name="preco_compra"
-                            placeholder="0,00">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label small fw-semibold" for="preco_venda">
-                        Preço de Venda
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text">R$</span>
-                        <input type="text" class="form-control" id="preco_venda" name="preco_venda" placeholder="0,00">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label small fw-semibold" for="total_imposto">
-                        Total de Impostos (%)
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text">%</span>
-                        <input type="text" class="form-control" id="total_imposto" name="total_imposto"
-                            placeholder="0,00">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label small fw-semibold" for="margem_lucro">
-                        Margem de Lucro (%)
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text">%</span>
-                        <input type="text" class="form-control" id="margem_lucro" name="margem_lucro"
-                            placeholder="0,00">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label small fw-semibold" for="custo_operacional">
-                        Custo Operacional (%)
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text">%</span>
-                        <input type="text" class="form-control" id="custo_operacional" name="custo_operacional"
-                            placeholder="0,00">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-2">
-        <span id="total_importo_value"></span>
-    </div>
-    <div class="card shadow-sm border-0 mb-3">
-        <div class="card-body py-2">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="ativo" id="ativo" value="true">
-                <label class="form-check-label" for="ativo">Produto ativo</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn btn-success" id="insert">
-                <i class="fa-solid fa-floppy-disk me-1"></i> Salvar
-            </button>
-        </div>
-    </div>
-
-</form>
+	<div class="row">
+		<div class="col-12">
+			<h2>Cadastro de Produto</h2>
+		</div>
+	</div>
+	<form id="form">
+		<input type="hidden" id="id" name="id">
+		<input type="hidden" id="action" name="action">
+		<div class="row">
+			<div class="col-8">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="nome" name="nome" placeholder="example" autofocus>
+					<label for="nome">Nome do produto</label>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-floating mb-4">
+					<input type="text" class="form-control" id="codigo_barra" name="codigo_barra" placeholder="example">
+					<label for="codigo_barra">Código de barras do produto</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="preco_compra" name="preco_compra" placeholder="example">
+					<label for="preco_compra">Preço de compra</label>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="total_imposto" name="total_imposto" placeholder="example">
+					<label for="total_imposto">Total de imposto</label>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="margem_lucro" name="margem_lucro" placeholder="example">
+					<label for="margem_lucro">Margem de lucro</label>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="custo_operacional" name="custo_operacional" placeholder="example">
+					<label for="custo_operacional">Custo operacional</label>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="preco_venda" name="preco_venda" placeholder="example" autofocus>
+					<label for="preco_venda">Preço de venda</label>
+				</div>
+			</div>
+			<div class="col-2">
+				<span id="total_importo_value"></span>
+			</div>
+			<div class="col-2">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="unidade" name="unidade" placeholder="example" autofocus>
+					<label for="unidade">Unidade do produto</label>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" role="switch" id="ativo" name="ativo" checked>
+					<label class="form-check-label" for="ativo">Produto ativo?</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="resultado-row mb-2 d-none" id="resultado-row">
+					<div class="metrica-col">
+						<span class="metrica-label">Total de imposto</span>
+						<span class="metrica-valor" id="val-imposto">—</span>
+					</div>
+					<div class="metrica-col">
+						<span class="metrica-label">Custo operacional</span>
+						<span class="metrica-valor" id="val-custo">—</span>
+					</div>
+					<div class="metrica-col">
+						<span class="metrica-label">Margem de lucro</span>
+						<span class="metrica-valor" id="val-margem">—</span>
+					</div>
+					<div class="metrica-col destaque">
+						<span class="metrica-label">Preço de venda sugerido</span>
+						<span class="metrica-valor" id="val-venda">—</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="form-floating">
+					<textarea class="form-control" placeholder="Leave a comment here" id="descricao" name="descricao" style="height: 100px"></textarea>
+					<label for="descricao">Descrição do produto</label>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-12 mt-2">
+				<button type="button" class="btn btn-outline-success" id="insert">
+					<i class="fa-solid fa-floppy-disk"></i>
+					Salvar
+				</button>
+			</div>
+		</div>
+	</form>
 
 {% endblock %}
 
 {% block scripts %}
-<script defer type="module" src="file:///{{ assets }}/js/product.js"></script>
+	<script type="module" src="file:///{{ assets }}/js/product.js"></script>
 {% endblock %}
