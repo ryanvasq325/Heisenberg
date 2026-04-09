@@ -1,4 +1,5 @@
 import knex from 'knex';
+
 //  Ambiente e constantes
 const IS_PROD = process.env.NODE_ENV === 'production';
 const DB_SCHEMA = process.env.DB_SCHEMA || 'public';
