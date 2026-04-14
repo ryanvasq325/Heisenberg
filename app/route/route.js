@@ -5,16 +5,16 @@ import Product from '../controller/Product.js';
 import Supplier from '../controller/Supplier.js';
 import Users from '../controller/Users.js';
 import Enterprise from '../controller/Enterprise.js';
-import Print from '../mixin/Print.js'; // ✅
+import { Print } from '../mixin/Print.js';
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
 }
 
 
-// ✅ Correto
+//Imprimir PDF
 ipcMain.handle('print', async (_e, stringHtml, args = {}) => {
-    return await Print.create().stringHTML(stringHtml).print();
+    await Print.create().stringHTML(stringHtml).print();
 });
 // Avisa todas as janelas para recarregar
 function broadcastReload(channel) {

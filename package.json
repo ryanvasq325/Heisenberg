@@ -103,6 +103,7 @@
         "knex": "^3.2.5",
         "nunjucks": "^3.2.4",
         "pg": "^8.20.0",
+        "puppeteer": "^24.40.0",
         "puppeteer-core": "^24.40.0",
         "sweetalert2": "^11.26.23"
     }
