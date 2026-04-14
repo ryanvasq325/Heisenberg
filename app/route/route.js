@@ -5,11 +5,17 @@ import Product from '../controller/Product.js';
 import Supplier from '../controller/Supplier.js';
 import Users from '../controller/Users.js';
 import Enterprise from '../controller/Enterprise.js';
+import Print from '../mixin/Print.js'; // ✅
 
 function getWin(event) {
     return BrowserWindow.fromWebContents(event.sender);
 }
 
+
+// ✅ Correto
+ipcMain.handle('print', async (_e, stringHtml, args = {}) => {
+    return await Print.create().stringHTML(stringHtml).print();
+});
 // Avisa todas as janelas para recarregar
 function broadcastReload(channel) {
     for (const win of BrowserWindow.getAllWindows()) {

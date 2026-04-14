@@ -3,10 +3,11 @@
 //  Uso: Print.create().stringHTML('<h1>Olá mundo!</h1>').print()
 //  Roda exclusivamente no main process do Electron
 // =============================================================================
-const { BrowserWindow } = require('electron')
-const path = require('path')
-const fs = require('fs')
-const os = require('os')
+// Depois
+import { BrowserWindow } from 'electron'
+import path from 'path'
+import fs from 'fs'
+import os from 'os'
 
 class Print {
     constructor() {
@@ -131,5 +132,4 @@ class Print {
         }
     }
 }
-
-module.exports = Print
+export default Print    
