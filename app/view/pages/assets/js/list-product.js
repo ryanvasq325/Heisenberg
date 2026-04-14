@@ -41,6 +41,9 @@ Datatables.SetTable('#table-products', [
                 <button onclick="deleteProduct(${row.id})" class="btn btn-xs btn-danger btn-sm">
                     <i class="fa-solid fa-trash"></i> Excluir
                 </button>
+                <button onclick="printProduct(${row.id})" class="btn btn-xs btn-info btn-sm">
+                    <i class="fa-solid fa-print"></i> Imprimir
+                </button>
             `;
         }
     }
@@ -90,6 +93,32 @@ async function editProduct(id) {
         toast('error', 'Falha', 'Erro: ' + err.message);
     }
 }
-
+async function printProduct(id) {
+    try {
+        // 1. Busca os dados completos do produto
+        const product = await api.product.findById(id);
+        if (!product) {
+            toast('error', 'Erro', 'Produto não encontrado.');
+            return;
+        }
+        api.print.stringHTML(`
+            <h1>Ficha do Produto</h1>
+            <p><strong>ID:</strong> ${product.id}</p>
+            <p><strong>Nome:</strong> ${product.nome}</p>
+            <p><strong>Código de Barra:</strong> ${product.codigo_barra}</p>
+        `).destino(`product_${product.id}.pdf`).print().then(result => {
+            if (result.sucesso) {
+                toast('success', 'Sucesso', 'PDF gerado em: ' + result.caminho);
+            } else {
+                toast('error', 'Erro', 'Falha ao gerar PDF.');
+            }
+        }).catch(err => {
+            toast('error', 'Erro', 'Erro: ' + err.message);
+        });
+    } catch (err) {
+        toast('error', 'Falha', 'Erro: ' + err.message);
+    }
+}
+window.printProduct = printProduct;
 window.deleteProduct = deleteProduct;
 window.editProduct = editProduct;

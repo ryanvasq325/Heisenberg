@@ -16,7 +16,6 @@ function broadcastReload(channel) {
         win.webContents.send(channel);
     }
 }
-
 // --- DASHBOARD / ESTATÍSTICAS ---
 ipcMain.handle('dashboard:getStats', async () => {
     try {
