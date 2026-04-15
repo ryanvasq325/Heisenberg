@@ -1,67 +1,113 @@
 {% extends "layouts/main.html" %}
 
-{% block title %}Novo Fornecedor{% endblock %}
+{% block title %}Nova Compra{% endblock %}
 
 {% block content %}
 <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-3">
     <div>
-        <h2 class="mb-0 fw-semibold">Cadastro de Fornecedor</h2>
-        <small class="text-muted">Preencha os dados do Fornecedor</small>
+        <h2 class="mb-0 fw-semibold">Nova Compra</h2>
+        <small class="text-muted">Preencha os dados da compra</small>
     </div>
+    <span class="badge bg-warning text-dark" id="badge-estado">Em andamento</span>
 </div>
 
 <form id="form">
     <input type="hidden" id="id" name="id">
     <input type="hidden" id="action" name="action">
 
-    <div class="card shadow-sm border-0 mb-3">
+    <div class="card border-0 shadow-sm mb-4">
         <div class="card-header bg-dark text-white py-2 px-3">
-            <small class="fw-semibold"><i class="fa-solid fa-user me-2"></i>Dados Pessoais</small>
+            <small class="fw-semibold"><i class="fa-solid fa-cart-shopping me-2"></i>Dados da compra</small>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" placeholder="example" autofocus>
-                        <label for="nome_fantasia">Nome do Fornecedor</label>
-                    </div>
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label class="form-label">Fornecedor</label>
+                    <select class="form-select" id="fornecedor_id" name="fornecedor_id">
+                        <option value="">Selecione um fornecedor...</option>
+                    </select>
                 </div>
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="example" autofocus>
-                        <label for="razao_social">Razão Social do Fornecedor</label>
-                    </div>
+                <div class="col-md-4">
+                    <label class="form-label">Estado da compra</label>
+                    <select class="form-select" id="estado_compra" name="estado_compra">
+                        <option value="EM_ANDAMENTO">Em andamento</option>
+                        <option value="RECEBIDO">Recebido</option>
+                    </select>
                 </div>
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="cnpj_cpf" name="cnpj_cpf" placeholder="example">
-                        <label for="cnpj_cpf">CPF/CNPJ do Fornecedor</label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating mb-3 mb-0">
-                        <input type="text" class="form-control" id="rg_ie" name="rg_ie" placeholder="example">
-                        <label for="rg_ie">RG/IE do Fornecedor</label>
-                    </div>
+                <div class="col-12">
+                    <label class="form-label">Observação</label>
+                    <textarea class="form-control" id="observacao" name="observacao" rows="2"
+                        placeholder="Observações sobre a compra..."></textarea>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card shadow-sm border-0 mb-3">
-        <div class="card-body py-2">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="ativo" id="ativo" value="true">
-                <label class="form-check-label" for="ativo">Fornecedor ativo</label>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-dark text-white py-2 px-3">
+            <small class="fw-semibold"><i class="fa-solid fa-list me-2"></i>Itens da compra</small>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle mb-2" id="tabela-itens">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="min-width:220px">Produto</th>
+                            <th style="width:100px">Qtd</th>
+                            <th style="width:130px">Total bruto (R$)</th>
+                            <th style="width:120px">Desconto (R$)</th>
+                            <th style="width:120px">Acréscimo (R$)</th>
+                            <th style="width:130px">Total líquido (R$)</th>
+                            <th style="width:50px"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="itens-body"></tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-add-item">
+                + Adicionar item
+            </button>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-dark text-white py-2 px-3">
+            <small class="fw-semibold"><i class="fa-solid fa-calculator me-2"></i>Totais</small>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-light rounded text-end">
+                        <div class="text-muted small">Total bruto</div>
+                        <div class="fs-5 fw-semibold" id="tot-bruto">R$ 0,00</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-light rounded text-end">
+                        <div class="text-muted small">Desconto total</div>
+                        <div class="fs-5 fw-semibold text-danger" id="tot-desc">R$ 0,00</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-light rounded text-end">
+                        <div class="text-muted small">Acréscimo total</div>
+                        <div class="fs-5 fw-semibold text-warning" id="tot-acres">R$ 0,00</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-primary bg-opacity-10 rounded text-end">
+                        <div class="text-muted small">Total líquido</div>
+                        <div class="fs-5 fw-semibold text-primary" id="tot-liq">R$ 0,00</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <button type="button" class="btn btn-success" id="insert">
-                <i class="fa-solid fa-floppy-disk me-1"></i>
-                Salvar
+            <button type="button" class="btn btn-success" id="btn-salvar">
+                <i class="fa-solid fa-floppy-disk me-1"></i>Salvar
             </button>
         </div>
     </div>
@@ -69,5 +115,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="file:///{{ assets }}/js/supplier.js"></script>
+<script src="file:///{{ assets }}/js/purchase.js"></script>
 {% endblock %}

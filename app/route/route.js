@@ -5,6 +5,7 @@ import Product from '../controller/Product.js';
 import Supplier from '../controller/Supplier.js';
 import Users from '../controller/Users.js';
 import Enterprise from '../controller/Enterprise.js';
+import Purchase from '../controller/Purchase.js';
 import { Print } from '../mixin/Print.js';
 
 function getWin(event) {
@@ -144,6 +145,12 @@ ipcMain.handle('product:delete', async (_e, id) => {
     if (result.status) broadcastReload('product:reload');
     return result;
 });
+// No setor de PRODUTOS
+ipcMain.handle('product:getAll', async () => {
+    const result = await Product.find() || {};
+    // Retornamos apenas a lista de registros para o frontend
+    return result.data || []; 
+});
 
 // --- FORNECEDORES ---
 ipcMain.handle('supplier:insert', async (_e, data) => {
@@ -170,6 +177,12 @@ ipcMain.handle('supplier:delete', async (_e, id) => {
     const result = await Supplier.delete(id);
     if (result.status) broadcastReload('supplier:reload');
     return result;
+});
+// No setor de FORNECEDORES
+ipcMain.handle('supplier:getAll', async () => {
+    const result = await Supplier.find() || {};
+    // Retornamos apenas a lista de registros para o frontend
+    return result.data || [];
 });
 
 // --- USUARIOS ---
@@ -223,4 +236,14 @@ ipcMain.handle('enterprise:delete', async (_e, id) => {
     const result = await Enterprise.delete(id);
     if (result.status) broadcastReload('enterprise:reload');
     return result;
+});
+// Purchase
+
+ipcMain.handle('purchase:insert', async (_e, data) => {
+    console.log('Dados da Compra Recebidos:', data);
+    return { status: true, msg: 'Compra registrada com sucesso!' };
+});
+
+ipcMain.handle('purchase:insert', async (_e, data) => {
+    return await Purchase.insert(data);
 });
