@@ -4,7 +4,6 @@ let rowCount = 0;
 const rows = {}; 
 let produtos = [];
 
-// Função utilitária para converter strings de moeda (R$ 1.000,00) em Float
 function parseValue(val) {
     if (!val) return 0;
     return parseFloat(
@@ -15,7 +14,7 @@ function parseValue(val) {
     ) || 0;
 }
 
-// Formatação visual
+
 function fmt(v) {
     return 'R$ ' + parseFloat(v || 0).toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
@@ -26,13 +25,13 @@ function fmt(v) {
 document.addEventListener('DOMContentLoaded', () => {
     carregarFornecedores();
     carregarProdutos();
-    adicionarItem(); // Começa com uma linha limpa
+    adicionarItem(); 
 
     document.getElementById('estado_compra').addEventListener('change', atualizarBadge);
     document.getElementById('btn-add-item').addEventListener('click', adicionarItem);
     document.getElementById('btn-salvar').addEventListener('click', salvar);
 
-    // Listener global único para fechar listas de busca ao clicar fora
+
     document.addEventListener('click', (e) => {
         document.querySelectorAll('[id^="produto-lista-"]').forEach(lista => {
             const id = lista.id.split('-').pop();
@@ -85,14 +84,13 @@ function calcRow(id) {
     const desc  = parseValue(document.getElementById(`desc-${id}`).value);
     const acres = parseValue(document.getElementById(`acres-${id}`).value);
     
-    // Cálculo: (Preço Unitário * Qtd) - Desconto + Acréscimo
+
     const totalItemBruto = bruto * qty;
     const liq = totalItemBruto - desc + acres;
     
-    // Atualiza o campo líquido (formatado)
+
     document.getElementById(`liq-${id}`).value = liq.toFixed(2);
     
-    // Armazena os valores para o total geral
     rows[id] = { bruto: totalItemBruto, desc, acres, liq };
     calcTotals();
 }
@@ -147,7 +145,6 @@ function adicionarItem() {
     `;
     document.getElementById('itens-body').appendChild(tr);
 
-    // Aplica a máscara de moeda se você estiver usando Inputmask
     if (typeof Inputmask !== "undefined") {
         Inputmask("currency", {
             radixPoint: ",",
@@ -198,7 +195,6 @@ function selecionarProduto(id, produto) {
     document.getElementById('produto-lista-' + id).style.display = 'none';
 
     if (produto.preco_custo) {
-        // Preenche o valor bruto com o preço de custo do cadastro
         document.getElementById('bruto-' + id).value = parseFloat(produto.preco_custo).toFixed(2);
         calcRow(id);
     }
